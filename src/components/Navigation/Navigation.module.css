@@ -1,0 +1,13 @@
+.navigation {
+  display: flex;
+  gap: 20px;
+}
+
+.link {
+  color: #1d1dd6;
+  text-decoration: none;
+}
+
+.isActive {
+  color: orange;
+}
