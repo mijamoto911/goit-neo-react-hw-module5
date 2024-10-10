@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { searchMovies } from '../../api/movies-api';
-import { useSearchParams, Link, useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+import MovieList from '../../components/MovieList/MovieList';
 import css from './MoviesPage.module.css';
 
 const MoviesPage = () => {
@@ -10,7 +11,6 @@ const MoviesPage = () => {
 
   const [params, setParams] = useSearchParams();
   const [query, setQuery] = useState(params.get('title') ?? '');
-  const location = useLocation();
 
   const handleChange = ({ target: { value } }) => {
     setQuery(value);
@@ -51,7 +51,6 @@ const MoviesPage = () => {
     <div>
       {isLoading && <h1>Loading...</h1>}
       {error && <h1>Oops... Something went wrong</h1>}
-
       <form onSubmit={handleSearchSubmit}>
         <input
           type="text"
@@ -64,17 +63,7 @@ const MoviesPage = () => {
           Search
         </button>
       </form>
-      {movies && (
-        <ul>
-          {movies.map((el) => (
-            <li key={el.id}>
-              <Link to={`/movie/${el.id}`} state={{ from: location }}>
-                {el.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      {movies && <MovieList movies={movies} />}
     </div>
   );
 };

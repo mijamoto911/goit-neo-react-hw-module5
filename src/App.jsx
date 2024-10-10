@@ -15,8 +15,8 @@ const MovieReviews = lazy(() =>
 const App = () => {
   return (
     <div className={css.container}>
-      <Navigation />
       <Suspense fallback={<h1>LOADING COMPONENT...</h1>}>
+        <Navigation />
         <hr />
         <Routes>
           <Route path="/" element={<HomePage />} />

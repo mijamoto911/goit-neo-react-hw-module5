@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import {
   useParams,
   NavLink,
@@ -17,7 +17,7 @@ const MovieDetailsPage = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const backPath = location.state?.from ?? '/';
+  const prevLocationRef = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     const getMovie = async () => {
@@ -39,7 +39,10 @@ const MovieDetailsPage = () => {
   return (
     movie && (
       <div>
-        <button onClick={() => navigate(backPath)} className={css.btn}>
+        <button
+          onClick={() => navigate(prevLocationRef.current)}
+          className={css.btn}
+        >
           Go back
         </button>
         {isLoading && <h1>Loading...</h1>}
